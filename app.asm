@@ -8,7 +8,7 @@ STDOUT    equ 1
 section .bss
     ; variable
 
-    money resb 3
+    money resq 3 
     conf resq 1
 
 section .data
@@ -148,11 +148,25 @@ section .text
 
     loopGame:
 
-        ; ask the player if he wants to play 
+        ; NEWLINE PRINT
         MOV rax,SYS_WRITE
         MOV rdi,STDOUT
-        MOV rsi,start
-        MOV rdx,startLen
+        MOV rsi,newline
+        MOV rdx,newlineLen
+        syscall
+
+        ; show money to player
+        MOV rax,SYS_WRITE
+        MOV rdi,STDOUT
+        MOV rsi,showMoney
+        MOV rdx,showMoneyLen
+        syscall
+
+        ; money variable
+        MOV rax,SYS_WRITE
+        MOV rdi,STDOUT
+        MOV rsi,[money]
+        MOV rdx,3
         syscall
 
         ;exiting
